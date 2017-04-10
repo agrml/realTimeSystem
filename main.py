@@ -1,11 +1,13 @@
 import xml.etree.ElementTree as ET
 from copy import deepcopy
 
+
 class Component:
-    def __init__(self, num=0, rel=0, cost=0):
+    def __init__(self, num=0.0, rel=0.0, cost=0.0):
         self.num = num
         self.rel = rel
         self.cost = cost
+
 
 class Combo:
     def __init__(self, combo):
@@ -18,14 +20,18 @@ class Combo:
 
 
 def get_not_the_worsts(components):
-    res = {}
+    res = []
     for component in components:
         cost = float(component.attrib["cost"])
         rel = float(component.attrib["rel"])
         num = float(component.attrib["num"])
-        if cost in res.keys() and res[cost].rel >= rel:
+        skip = False
+        for item in res:
+            if rel < item.rel and cost >= item.cost:
+                skip = True
+        if skip:
             continue
-        res[cost] = Component(num, rel, cost)
+        res.append(Component(num, rel, cost))
     return res
 
 
@@ -34,7 +40,7 @@ def get_all_combinations(combinations, combo):
         return combo
     l = []
     for elem in combinations[len(combo)]:
-        new_combo = deepcopy(combo)
+        new_combo = combo.copy()
         new_combo.append(elem)
         l.append(get_all_combinations(combinations, new_combo))
     return l
@@ -47,8 +53,9 @@ def main():
     limit_cost = float(root.attrib['limitcost'])
     modules = []
     for module in root:
-        sws = get_not_the_worsts(module.findall("sw")).items()
-        hws = get_not_the_worsts(module.findall("hw")).items()
+        # components are sorted over their numbers
+        sws = get_not_the_worsts(module.findall("sw"))
+        hws = get_not_the_worsts(module.findall("hw"))
         modules.append([sws, hws])
 
     combinations = []
@@ -59,7 +66,8 @@ def main():
             for hw in hws:
                 m_combinations.append([sw, hw])
         combinations.append(m_combinations)
-        combinations = get_all_combinations(combinations, [])
+    combinations = get_all_combinations(combinations, [])
+
     best_combo = None
     for combo in combinations:
         combo = Combo(combo)

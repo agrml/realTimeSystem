@@ -78,7 +78,7 @@ class Process:
 
 def main():
     # parse to IR and delete the worsts
-    tree = ET.parse("example.xml")
+    tree = ET.parse("io/example.xml")
     root = tree.getroot()
     limit_cost = float(root.attrib['limitcost'])
     modules = []
@@ -100,7 +100,7 @@ def main():
     process = Process(combinations_by_modules, limit_cost)
     process.start()
 
-    with open("result.xml", "w") as f:
+    with open("io/result.xml", "w") as f:
         print('<system limitcost="{}" rel="{:.3f}" cost="{:.0f}" iteration="{}">'.format(
             limit_cost, process.best_combo.rel, process.best_combo.cost, process.n_iter), file=f)
         if process.best_combo is None:

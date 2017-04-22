@@ -1,0 +1,26 @@
+<system limitcost="180.0" rel="0.660" cost="180" iteration="209952">
+	<module num="1">
+		<sw num="2" rel="0.908" cost="10"/>
+		<hw num="2" rel="0.980" cost="10"/>
+	</module>
+	<module num="2">
+		<sw num="1" rel="0.965" cost="30"/>
+		<hw num="3" rel="0.970" cost="10"/>
+	</module>
+	<module num="3">
+		<sw num="1" rel="0.978" cost="20"/>
+		<hw num="3" rel="0.992" cost="10"/>
+	</module>
+	<module num="4">
+		<sw num="2" rel="0.908" cost="10"/>
+		<hw num="3" rel="0.985" cost="10"/>
+	</module>
+	<module num="5">
+		<sw num="3" rel="0.967" cost="10"/>
+		<hw num="2" rel="0.980" cost="20"/>
+	</module>
+	<module num="6">
+		<sw num="3" rel="0.968" cost="20"/>
+		<hw num="2" rel="0.995" cost="20"/>
+	</module>
+</system>

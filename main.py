@@ -63,8 +63,6 @@ class Process:
                 self.best_combo = combo
 
         if depth == 0:
-            print(self.best_combo.cost)
-
             cost_check = 0
             for elem in self.best_combo.combo:
                 cost_check += elem[0].cost
@@ -112,6 +110,8 @@ def main():
                 print('\t\t<hw num="{:.0f}" rel="{:.3f}" cost="{:.0f}"/>'.format(elem[1].num, elem[1].rel, elem[1].cost), file=f)
                 print('\t</module>', file=f)
         print('</system>', file=f)
+
+        print("Successfully computed. See result at ./io/result.xml")
 
 
 if __name__ == "__main__":
